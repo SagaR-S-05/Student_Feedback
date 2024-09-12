@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            margin: auto;
+            margin-top: 2rem;
+        }
+        h2 {
+            color: #ff5733;
+        }
+        h3 {
+            color: #333333;
+        }
+        .form-group label {
+            color: #555555;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label i {
+            margin-right: 0.5rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .alert {
+            margin-bottom: 1rem;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #dee2e6;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Feedback Form</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="post" onsubmit="return confirmSubmit()">
+            {% for i in range(1, 6) %}
+            <div class="form-section">
+                <h3 class="mt-4 mb-3">Subject {{ i }}</h3>
+                <div class="form-group">
+                    <label for="teacher_name_{{ i }}"><i class="fas fa-user"></i> Teacher Name:</label>
+                    <input type="text" class="form-control" id="teacher_name_{{ i }}" name="teacher_name_{{ i }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject_{{ i }}"><i class="fas fa-book"></i> Subject:</label>
+                    <input type="text" class="form-control" id="subject_{{ i }}" name="subject_{{ i }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="punctuality_{{ i }}"><i class="fas fa-clock"></i> Punctuality Rating:</label>
+                    <input type="number" class="form-control" id="punctuality_{{ i }}" name="punctuality_{{ i }}" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="knowledge_{{ i }}"><i class="fas fa-lightbulb"></i> Knowledge on Topic Rating:</label>
+                    <input type="number" class="form-control" id="knowledge_{{ i }}" name="knowledge_{{ i }}" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="communication_{{ i }}"><i class="fas fa-comments"></i> Communication Skills Rating:</label>
+                    <input type="number" class="form-control" id="communication_{{ i }}" name="communication_{{ i }}" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating_{{ i }}"><i class="fas fa-star"></i> Final Rating:</label>
+                    <input type="number" class="form-control" id="rating_{{ i }}" name="rating_{{ i }}" min="1" max="5" required>
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function confirmSubmit() {
+            return confirm("Are you sure you want to submit the form?");
+        }
+    </script>
+</body>
+</html>
